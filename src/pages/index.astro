@@ -1,13 +1,19 @@
 ---
+import { getSession } from 'auth-astro/server';
+
+const session = await getSession(Astro.request)
 import '@/styles/globals.css'
 import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
 
-import { Button } from "@/components/ui/button"
+if (!session) {
+  return Astro.redirect('/auth/login');
+}
+const haveTeam = false
+
+// if (!haveTeam) return Astro.redirect('/home')
 ---
 
 <Layout title="HogarPlanner">
-	<main>
-		<span class="text-red-600 animate-blurred-fade-in">HogarPlanner</span>
-		<Button>Hello World</Button>
-	</main>
+  <Header />
 </Layout>

@@ -1,0 +1,39 @@
+---
+import { getSession } from 'auth-astro/server';
+
+
+import Layout from "@/layouts/Layout.astro";
+import LoginForm from "@/components/auth/LoginForm.tsx";
+
+import GoogleIcon from "@/components/icons/GoogleIcon.astro";
+
+const session = await getSession(Astro.request)
+if (session) {
+  return Astro.redirect('/');
+}
+---
+
+<Layout title="HogarPlanner - Inicio Sesión">
+  <main class="w-full h-screen flex items-center">
+    <div class="hidden md:block w-full">
+      <p>hola</p>
+    </div>
+    <div class="w-full flex flex-col">
+      <LoginForm client:load />
+      <div class="flex items-center gap-2">
+        <hr class="flex-grow border-dark dark:border-white" />
+        <span class="text-secondary">O continúa con</span>
+        <hr class="flex-grow border-dark dark:border-white" />
+      </div>
+      {/* <Social /> */}
+      <button id="login" class="bg-secondary m-4 px-4 py-2 flex gap-2 rounded justify-center">
+        <span class="text-primary">Inicia sesión con</span><GoogleIcon /></button
+      >
+
+      <script>
+        const { signIn } = await import("auth-astro/client");
+        document.querySelector("#login").onclick = () => signIn("google");
+      </script>
+    </div>
+  </main>
+</Layout>

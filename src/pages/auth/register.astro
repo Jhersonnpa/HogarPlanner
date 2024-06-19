@@ -1,0 +1,17 @@
+---
+import { getSession } from 'auth-astro/server';
+
+import Layout from "@/layouts/Layout.astro";
+
+
+const session = await getSession(Astro.request)
+if (session) {
+  return Astro.redirect('/');
+}
+---
+
+<Layout title="HogarPlanner - Registro">
+  <main class="w-full">
+    <h1 class="text-secondary text-xl">Registro</h1>
+  </main>
+</Layout>

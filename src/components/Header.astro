@@ -1,0 +1,16 @@
+---
+import { getSession } from "auth-astro/server";
+
+import { Logo } from "@/components/Logo.tsx";
+import ResponsiveMenu from "@/components/ResponsiveMenu";
+import AvatarUser from "@/components/AvatarUser";
+const session = await getSession(Astro.request);
+---
+
+<header class="w-full flex items-center justify-around bg-secondary p-2">
+  <ResponsiveMenu client:load />
+  <Logo />
+  <div>
+    <AvatarUser client:load image={session?.user?.image} />
+  </div>
+</header>
